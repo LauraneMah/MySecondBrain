@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace MySecondBrain.Application.ViewModels
 {
-    class NoteListViewModel
+    public class NoteListViewModel
     {
+        public IEnumerable<Infrastructure.DB.Note> Notes { get; set; }
+
+        public int NotesCount
+        {
+            get
+            {
+                return Notes.Count();
+            }
+        }
     }
 }

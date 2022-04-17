@@ -1,0 +1,72 @@
+﻿@model MySecondBrain.Application.ViewModels.NoteListViewModel
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+<div class="site-wrap">
+
+    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(/images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center">
+
+                <div class="col-md-10" data-aos="fade-up" data-aos-delay="400">
+
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-md-8 text-center">
+                            <h1>Notes listing</h1>
+                            <p class="mb-0">Search notes what you want</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <div class="row mb-3 align-items-stretch">
+
+                        @foreach (var item in Model.Notes)
+                        {
+                            <div class="col-md-6 col-lg-6 mb-4 mb-lg-4">
+                                <div class="h-entry">
+                                    <h2 class="font-size-regular"><a asp-action="Detail" asp-route-id="@item.Idnote" class="text-black">@item.Titre</a></h2>
+                                    <div class="meta mb-3">Administrator Hard Codé<span class="mx-1">&bullet;</span>@item.DateCreation<span class="mx-1">&bullet;</span> <a href="#">Pas de tag</a></div>
+                                    <p>@item.Description</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="col-12 text-center mt-5">
+                        <p class="custom-pagination">
+                            <span>1</span>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <span>...</span>
+                            <a href="#">20</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-3 ml-auto">
+                    <div class="mb-5">
+                        <h3 class="h5 text-black mb-3">Search</h3>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

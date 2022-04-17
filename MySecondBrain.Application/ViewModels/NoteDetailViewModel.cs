@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MySecondBrain.Application.Services
+namespace MySecondBrain.Application.ViewModels
 {
-    class NoteControllerService
+    class NoteDetailViewModel
     {
+        public Infrastructure.DB.Note Note { get; set; }
     }
 }

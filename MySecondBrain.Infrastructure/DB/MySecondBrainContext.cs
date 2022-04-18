@@ -10,6 +10,7 @@ namespace MySecondBrain.Infrastructure.DB
     {
         public MySecondBrainContext()
         {
+
         }
 
         public MySecondBrainContext(DbContextOptions<MySecondBrainContext> options)

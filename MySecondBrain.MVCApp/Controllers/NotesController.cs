@@ -13,16 +13,10 @@ namespace MySecondBrain.MVCApp.Controllers
     {
         private readonly MySecondBrainContext _context;
 
-        public NotesController(MySecondBrainContext context)
-        {
-            _context = context;
-        }
-
         // GET: Notes
         public async Task<IActionResult> Index()
         {
-            var mySecondBrainContext = _context.Notes.Include(n => n.IddossierNavigation).Include(n => n.User);
-            return View(await mySecondBrainContext.ToListAsync());
+            return View();
         }
 
         // GET: Notes/Details/5

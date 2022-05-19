@@ -13,17 +13,17 @@ namespace MySecondBrain.MVCApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly NoteListControllerService _noteListControllerService;
 
-        public HomeController(ILogger<HomeController> logger, NoteListControllerService noteListControllerService)
+        public HomeController(ILogger<HomeController> logger)
         {
+
             _logger = logger;
-            _noteListControllerService = noteListControllerService;
         }
 
         public IActionResult Index()
         {
-            var NotesList = _noteListControllerService.GetNotesListViewModel();
+            NoteListControllerService noteListControllerService = new NoteListControllerService();
+            var NotesList = noteListControllerService.GetNotesListViewModel();
 
             return View(NotesList);
         }

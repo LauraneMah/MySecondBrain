@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MySecondBrain.Application.Services;
 using MySecondBrain.MVCApp.Models;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,19 @@ namespace MySecondBrain.MVCApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly NoteListControllerService _noteListControllerService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, NoteListControllerService noteListControllerService)
         {
             _logger = logger;
+            _noteListControllerService = noteListControllerService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var NotesList = _noteListControllerService.GetNotesListViewModel();
+
+            return View(NotesList);
         }
 
         public IActionResult Privacy()

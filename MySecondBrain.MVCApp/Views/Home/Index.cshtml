@@ -1,3 +1,10 @@
-﻿@{
+﻿@model MySecondBrain.Application.ViewModels.NoteListViewModel
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
+<h1>@Model.notes.First().Idnote</h1>
+<h1>@Model.notes.First().Titre</h1>

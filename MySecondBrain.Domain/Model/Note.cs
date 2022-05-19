@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MySecondBrain.Application.ViewModels
+namespace MySecondBrain.Domain.Model
 {
-    public class NoteListViewModel
+    class Note
     {
-        public List<Common.Note> notes { get; set; }
+
     }
 }

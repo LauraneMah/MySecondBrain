@@ -22,10 +22,7 @@ namespace MySecondBrain.MVCApp.Controllers
 
         public IActionResult Index()
         {
-            NoteListControllerService noteListControllerService = new NoteListControllerService();
-            var NotesList = noteListControllerService.GetNotesListViewModel();
-
-            return View(NotesList);
+            return View();
         }
 
         public IActionResult Privacy()

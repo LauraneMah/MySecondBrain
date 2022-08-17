@@ -1,56 +1,52 @@
-﻿@model MySecondBrain.Infrastructure.DB.Note
+﻿@model MySecondBrain.Application.ViewModels.NoteDetailViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@using (Html.BeginForm("PostCreate", "Notes", FormMethod.Post))
+{
+    <div class="p-5 bg-white">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Name</div>
+                @Html.TextBoxFor(m => m.Note.Titre, new { cols = "30", rows = "7", @class = "form-control", required = "required", pattern = "[A-Za-z0-9]{4,20}", title = "This field is required" })
+            </div>
+        </div>
 
-<h4>Note</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Iddossier" class="control-label"></label>
-                <select asp-for="Iddossier" class ="form-control" asp-items="ViewBag.Iddossier"></select>
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Description</div>
+                @Html.TextBoxFor(m => m.Note.Description, new { cols = "30", rows = "7", @class = "form-control" })
             </div>
-            <div class="form-group">
-                <label asp-for="Titre" class="control-label"></label>
-                <input asp-for="Titre" class="form-control" />
-                <span asp-validation-for="Titre" class="text-danger"></span>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Text</div>
+                @Html.TextAreaFor(m => m.Note.ContenuMarkdown, new { cols = "30", rows = "7", @class = "form-control", placeholder = "Enter text here", required = "required", pattern = "[A-Za-z0-9]{4,20}", title = "This field is required" })
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        @*<div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Choose a category: </div>
+                @Html.DropDownListFor(m => m.Note.Iddossier, new SelectList(this.Model.Dossiers, "Iddossier", "Nom"))
             </div>
-            <div class="form-group">
-                <label asp-for="ContenuMarkdown" class="control-label"></label>
-                <input asp-for="ContenuMarkdown" class="form-control" />
-                <span asp-validation-for="ContenuMarkdown" class="text-danger"></span>
+        </div>*@
+
+        @*<div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">New Category? Enter name here: </div>
+                @Html.TextBoxFor(m => m.newDossierName, new { cols = "30", rows = "7", @class = "form-control" })
             </div>
-            <div class="form-group">
-                <label asp-for="DateCreation" class="control-label"></label>
-                <input asp-for="DateCreation" class="form-control" />
-                <span asp-validation-for="DateCreation" class="text-danger"></span>
+        </div>*@
+        <div class="row form-group">
+            <div class="col-md-12">
+
+                <input type="submit" value="Create note" class="btn btn-primary py-2 px-4 text-white">
             </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.MVCApp", "MyS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Application", "MySecondBrain.Application\MySecondBrain.Application.csproj", "{18C35F44-C0D5-46BC-BB4B-88F07E929A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySecondBrain.Domain", "MySecondBrain.Domain\MySecondBrain.Domain.csproj", "{ECF104ED-6609-4DEA-B37F-3191C206DE89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Domain", "MySecondBrain.Domain\MySecondBrain.Domain.csproj", "{ECF104ED-6609-4DEA-B37F-3191C206DE89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySecondBrain.Infrastructure", "MySecondBrain.Infrastructure\MySecondBrain.Infrastructure.csproj", "{5A145BA7-0AA9-431F-857A-C63055032290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Infrastructure", "MySecondBrain.Infrastructure\MySecondBrain.Infrastructure.csproj", "{5A145BA7-0AA9-431F-857A-C63055032290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySecondBrain.Common", "MySecondBrain.Common\MySecondBrain.Common.csproj", "{FDCF7012-426F-46FF-BA9F-AAA365096362}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Common", "MySecondBrain.Common\MySecondBrain.Common.csproj", "{FDCF7012-426F-46FF-BA9F-AAA365096362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

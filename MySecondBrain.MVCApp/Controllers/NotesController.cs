@@ -1,11 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MySecondBrain.Application.Services;
 using MySecondBrain.Infrastructure.DB;
+using MySecondBrain.Application.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using MySecondBrain.MVCApp.Controllers;
+using MySecondBrain.MVCApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace MySecondBrain.MVCApp.Controllers
 {
@@ -16,7 +26,10 @@ namespace MySecondBrain.MVCApp.Controllers
         // GET: Notes
         public async Task<IActionResult> Index()
         {
-            return View();
+            NoteControllerService noteListControllerService = new NoteControllerService();
+            var NotesList = noteListControllerService.GetNotesListViewModel();
+
+            return View(NotesList);
         }
 
         // GET: Notes/Details/5
@@ -38,12 +51,14 @@ namespace MySecondBrain.MVCApp.Controllers
 
             return View(note);
         }
-
+        
         // GET: Notes/Create
         public IActionResult Create()
         {
-            ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier");
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
+            NoteDetailViewModel vm = new NoteDetailViewModel();
+
+           
+
             return View();
         }
 
@@ -52,17 +67,18 @@ namespace MySecondBrain.MVCApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Idnote,Iddossier,Titre,Description,ContenuMarkdown,DateCreation,UserId")] Note note)
+
+        public IActionResult PostCreate(NoteDetailViewModel noteDetailViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(note);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", note.Iddossier);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", note.UserId);
-            return View(note);
+            NoteListViewModel vm = new NoteListViewModel();
+
+            NoteControllerService.CreateNote(noteDetailViewModel.Note, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var notes = NoteControllerService.getNotesListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            vm.Notes = notes;
+
+            return View("Index", vm);
         }
 
         // GET: Notes/Edit/5

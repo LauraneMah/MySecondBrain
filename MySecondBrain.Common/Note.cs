@@ -15,6 +15,5 @@ namespace MySecondBrain.Common
         public string ContenuMarkdown { get; set; }
         public DateTime? DateCreation { get; set; }
         public string UserId { get; set; }
-
     }
 }

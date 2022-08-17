@@ -21,7 +21,7 @@ namespace MySecondBrain.MVCApp.Controllers
         // GET: AspNetUsers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AspNetUsers.ToListAsync());
+            return View( await _context.AspNetUsers.ToListAsync());
         }
 
         // GET: AspNetUsers/Details/5
@@ -55,6 +55,7 @@ namespace MySecondBrain.MVCApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] AspNetUser aspNetUser)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(aspNetUser);

@@ -42,7 +42,9 @@ namespace MySecondBrain.Domain.Services
         public static void CreateNote(Infrastructure.DB.Note note, string userId )
         {
             note.UserId = userId;
+            note.Iddossier = 3;
             Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
+
             db.Notes.Add(note);
             db.SaveChanges();
         }

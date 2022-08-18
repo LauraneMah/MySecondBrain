@@ -1,0 +1,52 @@
+﻿@model MySecondBrain.Application.ViewModels.NoteDetailViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@using (Html.BeginForm("PostCreate", "Notes", FormMethod.Post))
+{
+    <div class="p-5 bg-white">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Name</div>
+                @Html.TextBoxFor(m => m.Note.Titre, new { cols = "30", rows = "7", @class = "form-control", required = "required", pattern = "[A-Za-z0-9]{4,20}", title = "This field is required" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Description</div>
+                @Html.TextBoxFor(m => m.Note.Description, new { cols = "30", rows = "7", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <div class="col-md-12">
+                <div class="text-black">Text</div>
+                @Html.TextAreaFor(m => m.Note.Contenu, new { cols = "30", rows = "7", @class = "form-control", placeholder = "Enter text here", required = "required", pattern = "[A-Za-z0-9]{4,20}", title = "This field is required" })
+            </div>
+        </div>
+
+        @*<div class="row form-group">
+                <div class="col-md-12">
+                    <div class="text-black">Choose a category: </div>
+                    @Html.DropDownListFor(m => m.Note.Iddossier, new SelectList(this.Model.Dossiers, "Iddossier", "Nom"))
+                </div>
+            </div>*@
+
+        @*<div class="row form-group">
+                <div class="col-md-12">
+                    <div class="text-black">New Category? Enter name here: </div>
+                    @Html.TextBoxFor(m => m.newDossierName, new { cols = "30", rows = "7", @class = "form-control" })
+                </div>
+            </div>*@
+        <div class="row form-group">
+            <div class="col-md-12">
+
+                <input type="submit" value="Create note" class="btn btn-primary py-2 px-4 text-white">
+            </div>
+        </div>
+
+    </div>
+}

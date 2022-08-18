@@ -1,0 +1,40 @@
+﻿@model MySecondBrain.Application.ViewModels.NoteListViewModel
+
+@{
+    ViewData["Title"] = "Listes des notes";
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="mb-5">
+                    <div>
+                        <h1>Notes : </h1>
+
+                        <a asp-action="Create" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Create">Create Note</a>
+
+                        @foreach (var item in Model.notes)
+                        {
+                            <div class="col-lg-6">
+                                <div class="d-block d-md-flex listing list-group-horizontal-xl">
+                                    <div class="lh-content">
+                                        <span class="category">@item.Idnote</span>
+                                        <h2><a asp-action="Detail" asp-route-id="@item.Idnote" class="text-black">@item.Titre</a></h2>
+                                        <p>@item.Description</p>
+                                        <div>
+                                            <a asp-action="Edit" asp-route-id="@item.Idnote" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">Edit</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Idnote" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

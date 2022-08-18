@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MySecondBrain.Application.Services;
 using MySecondBrain.MVCApp.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MySecondBrain.MVCApp.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+
             _logger = logger;
         }
 

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MySecondBrain.Common", "MySecondBrain.Common\MySecondBrain.Common.csproj", "{FDCF7012-426F-46FF-BA9F-AAA365096362}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySecondBrain.TestConsole", "MySecondBrain.TestConsole\MySecondBrain.TestConsole.csproj", "{0DAA65F3-F372-4A90-B8C1-5B5DA9F0A10F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{FDCF7012-426F-46FF-BA9F-AAA365096362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDCF7012-426F-46FF-BA9F-AAA365096362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDCF7012-426F-46FF-BA9F-AAA365096362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAA65F3-F372-4A90-B8C1-5B5DA9F0A10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAA65F3-F372-4A90-B8C1-5B5DA9F0A10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAA65F3-F372-4A90-B8C1-5B5DA9F0A10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAA65F3-F372-4A90-B8C1-5B5DA9F0A10F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

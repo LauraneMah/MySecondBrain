@@ -9,7 +9,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.16">
       <PrivateAssets>all</PrivateAssets>
@@ -22,6 +21,10 @@
     <ProjectReference Include="..\MySecondBrain.Application\MySecondBrain.Application.csproj" />
     <ProjectReference Include="..\MySecondBrain.Common\MySecondBrain.Common.csproj" />
     <ProjectReference Include="..\MySecondBrain.Infrastructure\MySecondBrain.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\RegisterPage\" />
   </ItemGroup>
 
   <ItemGroup>

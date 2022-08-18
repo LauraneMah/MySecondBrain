@@ -16,7 +16,7 @@ namespace MySecondBrain.Infrastructure.DB
         public int Iddossier { get; set; }
         public string Titre { get; set; }
         public string Description { get; set; }
-        public string ContenuMarkdown { get; set; }
+        public string Contenu { get; set; }
         public DateTime? DateCreation { get; set; }
         public string UserId { get; set; }
 

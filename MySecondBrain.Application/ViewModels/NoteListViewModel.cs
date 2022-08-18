@@ -8,8 +8,6 @@ namespace MySecondBrain.Application.ViewModels
 {
     public class NoteListViewModel
     {
-        public List<Common.Note> notes { get; set; }
-
         public List<Infrastructure.DB.Note> Notes { get; set; }
 
 

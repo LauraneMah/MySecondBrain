@@ -20,7 +20,7 @@ namespace MySecondBrain.Application.Services
 
             var ViewModel = new NoteListViewModel();
 
-            ViewModel.notes = NotesList;
+            ViewModel.Notes = NotesList;
 
             return ViewModel;
         }

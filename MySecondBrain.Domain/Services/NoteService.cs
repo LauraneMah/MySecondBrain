@@ -11,16 +11,16 @@ namespace MySecondBrain.Domain.Services
 {
     public class NoteService
     {
-        public List<Common.Note> getNotes()
+        public List<Note> getNotes()
         {
             Infrastructure.DB.MySecondBrain_LMContext mySecondBrainContext = new MySecondBrain_LMContext();
 
-            List<Common.Note> notes1 = new List<Common.Note>();
+            List<Note> notes1 = new List<Note>();
 
             var notes = mySecondBrainContext.Notes.ToList();
             foreach (var dbnote in notes)
             {
-                Common.Note note = new Common.Note();
+                Note note = new Note();
 
                 note.Idnote = dbnote.Idnote;
                 note.Titre = dbnote.Titre;

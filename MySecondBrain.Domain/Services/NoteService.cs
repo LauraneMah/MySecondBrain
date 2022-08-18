@@ -11,7 +11,7 @@ namespace MySecondBrain.Domain.Services
 {
     public class NoteService
     {
-        public List<Note> getNotes()
+        public List<Note> GetNotes()
         {
             Infrastructure.DB.MySecondBrain_LMContext mySecondBrainContext = new MySecondBrain_LMContext();
 
@@ -29,6 +29,13 @@ namespace MySecondBrain.Domain.Services
             }
 
             return notes1;
+        }
+        public static Infrastructure.DB.Note GetNote(int noteId)
+        {
+            using (Infrastructure.DB.MySecondBrain_LMContext db = new Infrastructure.DB.MySecondBrain_LMContext())
+            {
+                return db.Notes.Find(noteId);
+            }
         }
 
         public static List<Infrastructure.DB.Note> GetAllNotesOfUser(string userId)

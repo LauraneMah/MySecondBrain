@@ -5,6 +5,36 @@ body {
   font-weight: 400;
   font-size: 1rem; }
 
+.res-circle {
+    /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
+    width: 20%;
+    border-radius: 50%;
+    /* (B) BACKGROUND COLOR */
+    background: #bcd6ff;
+    /* (C) NECESSARY TO POSITION TEXT BLOCK */
+    line-height: 0;
+    position: relative;
+}
+
+    /* (D) MATCH HEIGHT */
+    .res-circle::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+    }
+
+/* (E) TEXT BLOCK */
+.circle-txt {
+    /* (E1) CENTER TEXT IN CIRCLE */
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    text-align: center;
+    /* (E2) THE FONT - NOT REALLY IMPORTANT */
+    font-family: arial, sans-serif;
+    font-weight: bold;
+}
+
 ::-moz-selection {
   background: #000;
   color: #fff; }

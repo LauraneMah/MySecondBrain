@@ -11,9 +11,9 @@ namespace MySecondBrain.MVCApp.Controllers
 {
     public class DossiersController : Controller
     {
-        private readonly MySecondBrainContext _context;
+        private readonly MySecondBrain_LMContext _context;
 
-        public DossiersController(MySecondBrainContext context)
+        public DossiersController(MySecondBrain_LMContext context)
         {
             _context = context;
         }
@@ -21,8 +21,8 @@ namespace MySecondBrain.MVCApp.Controllers
         // GET: Dossiers
         public async Task<IActionResult> Index()
         {
-            var mySecondBrainContext = _context.Dossiers.Include(d => d.IddossierParentNavigation).Include(d => d.User);
-            return View(await mySecondBrainContext.ToListAsync());
+            var mySecondBrain_LMContext = _context.Dossiers.Include(d => d.IddossierParentNavigation).Include(d => d.User);
+            return View(await mySecondBrain_LMContext.ToListAsync());
         }
 
         // GET: Dossiers/Details/5

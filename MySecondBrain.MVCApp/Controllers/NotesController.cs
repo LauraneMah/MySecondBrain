@@ -21,7 +21,7 @@ namespace MySecondBrain.MVCApp.Controllers
 {
     public class NotesController : Controller
     {
-        private readonly MySecondBrainContext _context;
+        private readonly MySecondBrain_LMContext _context;
 
         // GET: Notes
         public async Task<IActionResult> Index()

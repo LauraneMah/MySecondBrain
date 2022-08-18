@@ -13,8 +13,5 @@ namespace MySecondBrain.Application.ViewModels
         public List<Infrastructure.DB.Note> Notes { get; set; }
 
 
-
-
-
     }
 }

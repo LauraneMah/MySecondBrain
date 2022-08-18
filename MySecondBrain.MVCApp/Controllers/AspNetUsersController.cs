@@ -11,9 +11,9 @@ namespace MySecondBrain.MVCApp.Controllers
 {
     public class AspNetUsersController : Controller
     {
-        private readonly MySecondBrainContext _context;
+        private readonly MySecondBrain_LMContext _context;
 
-        public AspNetUsersController(MySecondBrainContext context)
+        public AspNetUsersController(MySecondBrain_LMContext context)
         {
             _context = context;
         }

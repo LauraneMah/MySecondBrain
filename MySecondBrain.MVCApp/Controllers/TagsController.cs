@@ -11,9 +11,9 @@ namespace MySecondBrain.MVCApp.Controllers
 {
     public class TagsController : Controller
     {
-        private readonly MySecondBrainContext _context;
+        private readonly MySecondBrain_LMContext _context;
 
-        public TagsController(MySecondBrainContext context)
+        public TagsController(MySecondBrain_LMContext context)
         {
             _context = context;
         }
@@ -21,8 +21,8 @@ namespace MySecondBrain.MVCApp.Controllers
         // GET: Tags
         public async Task<IActionResult> Index()
         {
-            var mySecondBrainContext = _context.Tags.Include(t => t.User);
-            return View(await mySecondBrainContext.ToListAsync());
+            var mySecondBrain_LMContext = _context.Tags.Include(t => t.User);
+            return View(await mySecondBrain_LMContext.ToListAsync());
         }
 
         // GET: Tags/Details/5

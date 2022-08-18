@@ -1,19 +1,20 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
 namespace MySecondBrain.Infrastructure.DB
 {
-    public partial class MySecondBrainContext : DbContext
+    public partial class MySecondBrain_LMContext : DbContext
     {
-        public MySecondBrainContext()
+        public MySecondBrain_LMContext()
         {
-
         }
 
-        public MySecondBrainContext(DbContextOptions<MySecondBrainContext> options)
+        public MySecondBrain_LMContext(DbContextOptions<MySecondBrain_LMContext> options)
             : base(options)
         {
         }
@@ -35,8 +36,14 @@ namespace MySecondBrain.Infrastructure.DB
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=LAPTOP-N00SQK3E\\sqlexpress01;Database=MySecondBrain;Trusted_Connection=True;");
+                var config = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", true, true)
+                    .Build();
+
+                optionsBuilder
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(config.GetConnectionString("DefaultConnection"));
             }
         }
 

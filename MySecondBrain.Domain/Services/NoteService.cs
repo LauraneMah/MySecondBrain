@@ -13,7 +13,7 @@ namespace MySecondBrain.Domain.Services
     {
         public List<Common.Note> getNotes()
         {
-            Infrastructure.DB.MySecondBrainContext mySecondBrainContext = new MySecondBrainContext();
+            Infrastructure.DB.MySecondBrain_LMContext mySecondBrainContext = new MySecondBrain_LMContext();
 
             List<Common.Note> notes1 = new List<Common.Note>();
 
@@ -33,7 +33,7 @@ namespace MySecondBrain.Domain.Services
 
         public static List<Infrastructure.DB.Note> GetAllNotesOfUser(string userId)
         {
-            using (MySecondBrainContext db = new MySecondBrainContext())
+            using (MySecondBrain_LMContext db = new MySecondBrain_LMContext())
             {
                 return db.Notes.Where(n => n.User.Id == userId).ToList();
             }
@@ -42,21 +42,21 @@ namespace MySecondBrain.Domain.Services
         public static void CreateNote(Infrastructure.DB.Note note, string userId )
         {
             note.UserId = userId;
-            Infrastructure.DB.MySecondBrainContext db = new MySecondBrainContext();
+            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
             db.Notes.Add(note);
             db.SaveChanges();
         }
 
         public static void EditNote(Infrastructure.DB.Note note)
         {
-            Infrastructure.DB.MySecondBrainContext db = new MySecondBrainContext();
+            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             Infrastructure.DB.Note noteToUpdate = db.Notes.Find(note.Idnote);
             {
                 if (noteToUpdate != null)
                 {
                     noteToUpdate.Titre = note.Titre;
-                    noteToUpdate.ContenuMarkdown = note.ContenuMarkdown;
+                    noteToUpdate.Contenu = note.Contenu;
                     noteToUpdate.NoteTags = note.NoteTags;
                     db.Update(noteToUpdate);
                 }
@@ -67,7 +67,7 @@ namespace MySecondBrain.Domain.Services
 
         public static void DeleteNote(int noteId)
         {
-            Infrastructure.DB.MySecondBrainContext db = new MySecondBrainContext();
+            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             var noteToRemove = db.Notes.SingleOrDefault(a => a.Idnote == noteId);
             if (noteToRemove != null)

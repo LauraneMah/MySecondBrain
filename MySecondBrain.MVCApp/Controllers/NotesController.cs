@@ -68,6 +68,12 @@ namespace MySecondBrain.MVCApp.Controllers
             return View();
         }
 
+        public IActionResult Delete(int id)
+        {
+            Application.Services.NoteControllerService.DeleteNote(id);
+            return RedirectToAction("Index");
+        }
+
         // POST: Notes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -143,24 +149,24 @@ namespace MySecondBrain.MVCApp.Controllers
         //}
 
         // GET: Notes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var note = await _context.Notes
-                .Include(n => n.IddossierNavigation)
-                .Include(n => n.User)
-                .FirstOrDefaultAsync(m => m.Idnote == id);
-            if (note == null)
-            {
-                return NotFound();
-            }
+        //    var note = await _context.Notes
+        //        .Include(n => n.IddossierNavigation)
+        //        .Include(n => n.User)
+        //        .FirstOrDefaultAsync(m => m.Idnote == id);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(note);
-        }
+        //    return View(note);
+        //}
 
         // POST: Notes/Delete/5
         [HttpPost, ActionName("Delete")]

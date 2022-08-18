@@ -66,7 +66,10 @@ namespace MySecondBrain.Application.Services
            return vm;
         }
 
-
+        public static void DeleteNote(int noteId)
+        {
+            Domain.Services.NoteService.DeleteNote(noteId);
+        }
     }
 
 }

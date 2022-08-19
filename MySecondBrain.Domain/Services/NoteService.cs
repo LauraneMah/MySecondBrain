@@ -52,6 +52,10 @@ namespace MySecondBrain.Domain.Services
 
         public static void CreateNote(Infrastructure.DB.Note note, string userId )
         {
+            //if (userId == null) 
+            //{ 
+                   //redirect to Login
+            //}
             note.UserId = userId;
             note.DateCreation = DateTime.Now;
             note.Iddossier = 3; // A MODIFIER pour qu'on puisse choisir un dossier nous mêmes
@@ -72,6 +76,7 @@ namespace MySecondBrain.Domain.Services
                     noteToUpdate.Titre = note.Titre;
                     noteToUpdate.Contenu = note.Contenu;
                     noteToUpdate.NoteTags = note.NoteTags;
+                    noteToUpdate.Description = note.Description;
                     db.Update(noteToUpdate);
                 }
             }

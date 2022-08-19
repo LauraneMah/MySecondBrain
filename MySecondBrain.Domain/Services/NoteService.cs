@@ -1,5 +1,4 @@
-﻿using MySecondBrain.Common;
-using MySecondBrain.Infrastructure.DB;
+﻿using MySecondBrain.Infrastructure.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +17,7 @@ namespace MySecondBrain.Domain.Services
             List<Note> notes1 = new List<Note>();
 
             var notes = mySecondBrainContext.Notes.ToList();
+
             foreach (var getNote in notes)
             {
                 Note note = new Note();

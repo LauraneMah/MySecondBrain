@@ -80,11 +80,13 @@ namespace MySecondBrain.MVCApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public IActionResult PostCreate(NoteDetailViewModel noteDetailViewModel)
+        public IActionResult PostCreate(NoteDetailViewModel noteDetailViewModel, int idDossier)
         {
             NoteListViewModel vm = new NoteListViewModel();
 
-            NoteControllerService.CreateNote(noteDetailViewModel.Note, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            idDossier = noteDetailViewModel.Note.Iddossier; //A AJOUTER : conditions pour vérifier que c'est bien un int valide & existant)
+
+            NoteControllerService.CreateNote(noteDetailViewModel.Note, this.User.FindFirstValue(ClaimTypes.NameIdentifier), idDossier );
 
             var notes = NoteControllerService.GetNotesListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 

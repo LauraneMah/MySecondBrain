@@ -50,7 +50,7 @@ namespace MySecondBrain.Domain.Services
             }
         }
 
-        public static void CreateNote(Note note, string userId )
+        public static void CreateNote(Note note, string userId, int idDossier )
         {
             //if (userId == null) 
             //{ 
@@ -58,7 +58,7 @@ namespace MySecondBrain.Domain.Services
             //}
             note.UserId = userId;
             note.DateCreation = DateTime.Now;
-            note.Iddossier = 3; // A MODIFIER pour qu'on puisse choisir un dossier nous mêmes
+            note.Iddossier = idDossier;
             MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             db.Notes.Add(note);

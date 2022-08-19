@@ -14,15 +14,15 @@ namespace MySecondBrain.Application.Services
     {
         public NoteListViewModel GetNotesListViewModel()
         {
-            NoteService NoteService = new NoteService();
+            NoteService noteService = new NoteService();
 
-            var NotesList = NoteService.GetNotes();
+            var notesList = noteService.GetNotes();
 
-            var ViewModel = new NoteListViewModel();
+            var vm = new NoteListViewModel();
 
-            ViewModel.Notes = NotesList;
+            vm.Notes = notesList;
 
-            return ViewModel;
+            return vm;
         }
 
         public static List<Note> GetNotesListOfUser(string userId)
@@ -38,9 +38,9 @@ namespace MySecondBrain.Application.Services
         }
 
 
-        public static void CreateNote(Note note, string userId)
+        public static void CreateNote(Note note, string userId, int idDossier)
         {
-            NoteService.CreateNote(note, userId);
+            NoteService.CreateNote(note, userId, idDossier);
         }
 
         public static void EditNote(Note note)

@@ -32,7 +32,7 @@ namespace MySecondBrain.Domain.Services
         }
         public static Dossier GetDossier(int dossierId)
         {
-            using (MySecondBrain_LMContext db = new Infrastructure.DB.MySecondBrain_LMContext())
+            using (MySecondBrain_LMContext db = new MySecondBrain_LMContext())
             {
                 return db.Dossiers.Find(dossierId);
             }

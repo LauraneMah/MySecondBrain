@@ -8,5 +8,6 @@ namespace MySecondBrain.Domain.Services
 {
     class TagService
     {
+        
     }
 }

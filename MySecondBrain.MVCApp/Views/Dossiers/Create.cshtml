@@ -1,31 +1,70 @@
-﻿@model MySecondBrain.Infrastructure.DB.Dossier
+﻿@model MySecondBrain.Application.ViewModels.DossierDetailViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="mb-5">
+                    <div>
+                        <h1>Créer un dossier</h1>
+                    </div>
+                </div>
 
-<h4>Dossier</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="d-block d-md-flex listing list-group-horizontal-xl">
+        <div class="lh-content">
+
+            @using (Html.BeginForm("PostCreate", "Dossiers", FormMethod.Post))
+            {
+                <div class="p-5 bg-white">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <div class="text-black">Nom du dossier</div>
+                            @Html.TextBoxFor(m => m.Dossier.Nom, new { cols = "30", rows = "7", @class = "form-control", required = "required", pattern = "[A-Za-z0-9 ]{4,20}", title = "This field is required" })
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+
+                            <input type="submit" value="Create note" class="btn btn-primary py-2 px-4 text-white">
+                        </div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+    <a asp-area="" asp-controller="Notes" asp-action="Index">Notes</a>
+</div>
+
+<!--</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IddossierParent" class="control-label"></label>
-                <select asp-for="IddossierParent" class ="form-control" asp-items="ViewBag.IddossierParent"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
+                <label asp-for="Dossier.Nom" class="control-label"></label>
+                <input asp-for="Dossier.Nom" class="form-control" />
+                <span asp-validation-for="Dossier.Nom" class="text-danger"></span>
+            </div>-->
+            @*<div class="form-group">
+                    <label asp-for="IddossierParent" class="control-label"></label>
+                    <select asp-for="IddossierParent" class ="form-control" asp-items="ViewBag.IddossierParent"></select>
+                </div>*@
+
+            <!--<div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -38,4 +77,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}-->

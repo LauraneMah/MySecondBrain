@@ -1,4 +1,4 @@
-﻿@model MySecondBrain.Infrastructure.DB.Dossier
+﻿@model MySecondBrain.Application.ViewModels.DossierDetailViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,27 +12,27 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
+            @Html.DisplayNameFor(model => model.Dossier.Nom)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
+            @Html.DisplayFor(model => model.Dossier.Nom)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IddossierParentNavigation)
+            @Html.DisplayNameFor(model => model.Dossier.IddossierParentNavigation)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IddossierParentNavigation.Iddossier)
+            @Html.DisplayFor(model => model.Dossier.IddossierParentNavigation.Iddossier)
         </dd class>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Dossier.User)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+            @Html.DisplayFor(model => model.Dossier.User.Id)
         </dd class>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Iddossier" />
+        <input type="hidden" asp-for="Dossier.Iddossier" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

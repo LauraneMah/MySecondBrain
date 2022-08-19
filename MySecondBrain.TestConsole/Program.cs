@@ -28,7 +28,7 @@ namespace MySecondBrain.TestConsole
                     Console.WriteLine("Problème pendant la création des index!");
             }
 
-            private static void IndexDatabaseNote()
+            static void IndexDatabaseNote()
             {
                 var noteDocuments = new List<Infrastructure.ElasticSearch.IndexDocuments.NoteDocument>();
 
@@ -60,7 +60,7 @@ namespace MySecondBrain.TestConsole
                     Console.WriteLine("Une erreur s'est produite pendant l'indexation des notes!");
             }
 
-            public static void IndexDatabaseTag()
+            static void IndexDatabaseTag()
             {
                 var tagDocuments = new List<Infrastructure.ElasticSearch.IndexDocuments.TagDocument>();
 

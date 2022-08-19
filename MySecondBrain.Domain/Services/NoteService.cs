@@ -1,5 +1,4 @@
-﻿using MySecondBrain.Common;
-using MySecondBrain.Infrastructure.DB;
+﻿using MySecondBrain.Infrastructure.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +10,39 @@ namespace MySecondBrain.Domain.Services
 {
     public class NoteService
     {
-        public List<Common.Note> getNotes()
+        public List<Note> GetNotes()
         {
-            Infrastructure.DB.MySecondBrain_LMContext mySecondBrainContext = new MySecondBrain_LMContext();
+            MySecondBrain_LMContext mySecondBrainContext = new MySecondBrain_LMContext();
 
-            List<Common.Note> notes1 = new List<Common.Note>();
+            List<Note> notes1 = new List<Note>();
 
             var notes = mySecondBrainContext.Notes.ToList();
-            foreach (var dbnote in notes)
-            {
-                Common.Note note = new Common.Note();
 
-                note.Idnote = dbnote.Idnote;
-                note.Titre = dbnote.Titre;
-                // etc ...
+            foreach (var getNote in notes)
+            {
+                Note note = new Note();
+
+                note.Idnote = getNote.Idnote;
+                note.Titre = getNote.Titre;
+                note.Description = getNote.Description;
+                note.Contenu = getNote.Contenu;
+                note.DateCreation = getNote.DateCreation;
+                note.Iddossier = getNote.Iddossier;
+                note.UserId = getNote.UserId;
                 notes1.Add(note);
             }
 
             return notes1;
         }
+        public static Note GetNote(int noteId)
+        {
+            using (MySecondBrain_LMContext db = new MySecondBrain_LMContext())
+            {
+                return db.Notes.Find(noteId);
+            }
+        }
 
-        public static List<Infrastructure.DB.Note> GetAllNotesOfUser(string userId)
+        public static List<Note> GetAllNotesOfUser(string userId)
         {
             using (MySecondBrain_LMContext db = new MySecondBrain_LMContext())
             {
@@ -39,27 +50,33 @@ namespace MySecondBrain.Domain.Services
             }
         }
 
-        public static void CreateNote(Infrastructure.DB.Note note, string userId )
+        public static void CreateNote(Note note, string userId )
         {
+            //if (userId == null) 
+            //{ 
+                   //redirect to Login
+            //}
             note.UserId = userId;
-            note.Iddossier = 3;
-            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
+            note.DateCreation = DateTime.Now;
+            note.Iddossier = 3; // A MODIFIER pour qu'on puisse choisir un dossier nous mêmes
+            MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             db.Notes.Add(note);
             db.SaveChanges();
         }
 
-        public static void EditNote(Infrastructure.DB.Note note)
+        public static void EditNote(Note note)
         {
-            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
+            MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
-            Infrastructure.DB.Note noteToUpdate = db.Notes.Find(note.Idnote);
+            Note noteToUpdate = db.Notes.Find(note.Idnote);
             {
                 if (noteToUpdate != null)
                 {
                     noteToUpdate.Titre = note.Titre;
                     noteToUpdate.Contenu = note.Contenu;
                     noteToUpdate.NoteTags = note.NoteTags;
+                    noteToUpdate.Description = note.Description;
                     db.Update(noteToUpdate);
                 }
             }
@@ -69,7 +86,7 @@ namespace MySecondBrain.Domain.Services
 
         public static void DeleteNote(int noteId)
         {
-            Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
+            MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             var noteToRemove = db.Notes.SingleOrDefault(a => a.Idnote == noteId);
             if (noteToRemove != null)

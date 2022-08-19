@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MySecondBrain.Infrastructure.DB;
+using MySecondBrain.Application.Services;
+using MySecondBrain.Application.ViewModels;
+using System.Security.Claims;
 
 namespace MySecondBrain.MVCApp.Controllers
 {
@@ -13,153 +16,211 @@ namespace MySecondBrain.MVCApp.Controllers
     {
         private readonly MySecondBrain_LMContext _context;
 
-        public DossiersController(MySecondBrain_LMContext context)
-        {
-            _context = context;
-        }
-
         // GET: Dossiers
         public async Task<IActionResult> Index()
         {
-            var mySecondBrain_LMContext = _context.Dossiers.Include(d => d.IddossierParentNavigation).Include(d => d.User);
-            return View(await mySecondBrain_LMContext.ToListAsync());
+            DossierControllerService dossierListControllerService = new DossierControllerService();
+            var DossiersList = dossierListControllerService.GetDossierListViewModel();
+
+            return View(DossiersList);
         }
 
-        // GET: Dossiers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Detail(int id)
         {
-            if (id == null)
-            {
+            var vm = DossierControllerService.GetDossierDetail(id);
+            if (vm == null)
                 return NotFound();
-            }
 
-            var dossier = await _context.Dossiers
-                .Include(d => d.IddossierParentNavigation)
-                .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.Iddossier == id);
-            if (dossier == null)
-            {
-                return NotFound();
-            }
-
-            return View(dossier);
+            return View(vm);
         }
 
-        // GET: Dossiers/Create
+        // GET: Notes/Create
         public IActionResult Create()
         {
-            ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier");
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
+            DossierDetailViewModel vm = new DossierDetailViewModel();
+
             return View();
         }
 
+        public IActionResult Edit(int id)
+        {
+            var vm = DossierControllerService.GetDossierDetail(id);
+            if (vm == null)
+            {
+                return NotFound();
+            }
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(DossierDetailViewModel dossierDetailViewModel)
+        {
+            DossierControllerService.EditDossier(dossierDetailViewModel.Dossier);
+            return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            DossierControllerService.DeleteDossier(id);
+            return RedirectToAction("Index");
+        }
+
         // POST: Dossiers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Iddossier,Nom,IddossierParent,UserId")] Dossier dossier)
+        public IActionResult PostCreate(DossierDetailViewModel dossierDetailViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(dossier);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
-            return View(dossier);
+            DossierListViewModel vm = new DossierListViewModel();
+
+            DossierControllerService.CreateDossier(dossierDetailViewModel.Dossier, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var dossiers = DossierControllerService.GetDossiersListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            vm.Dossiers = dossiers;
+
+            return View("Index", vm);
         }
 
-        // GET: Dossiers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var dossier = await _context.Dossiers.FindAsync(id);
-            if (dossier == null)
-            {
-                return NotFound();
-            }
-            ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
-            return View(dossier);
-        }
+        // GET: Dossiers/Details/5
+        //    public async Task<IActionResult> Details(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        // POST: Dossiers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Iddossier,Nom,IddossierParent,UserId")] Dossier dossier)
-        {
-            if (id != dossier.Iddossier)
-            {
-                return NotFound();
-            }
+        //        var dossier = await _context.Dossiers
+        //            .Include(d => d.IddossierParentNavigation)
+        //            .Include(d => d.User)
+        //            .FirstOrDefaultAsync(m => m.Iddossier == id);
+        //        if (dossier == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dossier);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DossierExists(dossier.Iddossier))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
-            return View(dossier);
-        }
+        //        return View(dossier);
+        //    }
 
-        // GET: Dossiers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //    // GET: Dossiers/Create
+        //    public IActionResult Create()
+        //    {
+        //        ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier");
+        //        ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id");
+        //        return View();
+        //    }
 
-            var dossier = await _context.Dossiers
-                .Include(d => d.IddossierParentNavigation)
-                .Include(d => d.User)
-                .FirstOrDefaultAsync(m => m.Iddossier == id);
-            if (dossier == null)
-            {
-                return NotFound();
-            }
+        //    // POST: Dossiers/Create
+        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> Create([Bind("Iddossier,Nom,IddossierParent,UserId")] Dossier dossier)
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+        //            _context.Add(dossier);
+        //            await _context.SaveChangesAsync();
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
+        //        ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
+        //        return View(dossier);
+        //    }
 
-            return View(dossier);
-        }
+        //    // GET: Dossiers/Edit/5
+        //    public async Task<IActionResult> Edit(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-        // POST: Dossiers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var dossier = await _context.Dossiers.FindAsync(id);
-            _context.Dossiers.Remove(dossier);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //        var dossier = await _context.Dossiers.FindAsync(id);
+        //        if (dossier == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
+        //        ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
+        //        return View(dossier);
+        //    }
 
-        private bool DossierExists(int id)
-        {
-            return _context.Dossiers.Any(e => e.Iddossier == id);
-        }
+        //    // POST: Dossiers/Edit/5
+        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> Edit(int id, [Bind("Iddossier,Nom,IddossierParent,UserId")] Dossier dossier)
+        //    {
+        //        if (id != dossier.Iddossier)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        if (ModelState.IsValid)
+        //        {
+        //            try
+        //            {
+        //                _context.Update(dossier);
+        //                await _context.SaveChangesAsync();
+        //            }
+        //            catch (DbUpdateConcurrencyException)
+        //            {
+        //                if (!DossierExists(dossier.Iddossier))
+        //                {
+        //                    return NotFound();
+        //                }
+        //                else
+        //                {
+        //                    throw;
+        //                }
+        //            }
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        ViewData["IddossierParent"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", dossier.IddossierParent);
+        //        ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", dossier.UserId);
+        //        return View(dossier);
+        //    }
+
+        //    // GET: Dossiers/Delete/5
+        //    public async Task<IActionResult> Delete(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        var dossier = await _context.Dossiers
+        //            .Include(d => d.IddossierParentNavigation)
+        //            .Include(d => d.User)
+        //            .FirstOrDefaultAsync(m => m.Iddossier == id);
+        //        if (dossier == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        return View(dossier);
+        //    }
+
+        //    // POST: Dossiers/Delete/5
+        //    [HttpPost, ActionName("Delete")]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> DeleteConfirmed(int id)
+        //    {
+        //        var dossier = await _context.Dossiers.FindAsync(id);
+        //        _context.Dossiers.Remove(dossier);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    private bool DossierExists(int id)
+        //    {
+        //        return _context.Dossiers.Any(e => e.Iddossier == id);
+        //    }
+        //}
     }
 }

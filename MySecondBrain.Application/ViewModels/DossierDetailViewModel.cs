@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MySecondBrain.Application.ViewModels
 {
-    public class NoteListViewModel
+     public class DossierDetailViewModel
     {
-        public List<Infrastructure.DB.Note> Notes { get; set; }
-
-
+        public Infrastructure.DB.Dossier Dossier { get; set; }
     }
 }

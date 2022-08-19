@@ -16,16 +16,16 @@ namespace MySecondBrain.Application.Services
         {
             NoteService NoteService = new NoteService();
 
-            var NotesList = NoteService.getNotes();
+            var NotesList = NoteService.GetNotes();
 
             var ViewModel = new NoteListViewModel();
 
-            ViewModel.notes = NotesList;
+            ViewModel.Notes = NotesList;
 
             return ViewModel;
         }
 
-        public static List<Infrastructure.DB.Note> getNotesListOfUser(string userId)
+        public static List<Note> GetNotesListOfUser(string userId)
         {
             var notes = NoteService.GetAllNotesOfUser(userId);
 
@@ -38,19 +38,38 @@ namespace MySecondBrain.Application.Services
         }
 
 
-        public static void CreateNote(Infrastructure.DB.Note note, string userId)
+        public static void CreateNote(Note note, string userId)
         {
-            Domain.Services.NoteService.CreateNote(note, userId);
+            NoteService.CreateNote(note, userId);
+        }
+
+        public static void EditNote(Note note)
+        {
+            NoteService.EditNote(note);
         }
 
 
+        public static NoteDetailViewModel GetNoteDetail(int noteId)
+        {
+            Note note = NoteService.GetNote(noteId);
+            
+            if(note == null)
+            {
+                return null;
+            }
 
-        //public NoteListViewModel GetNoteDetails(int noteId)
-        //{
+            NoteDetailViewModel vm = new NoteDetailViewModel()
+            {
+                Note = note
+            };
 
-        //}
+           return vm;
+        }
 
-
+        public static void DeleteNote(int noteId)
+        {
+            NoteService.DeleteNote(noteId);
+        }
     }
 
 }

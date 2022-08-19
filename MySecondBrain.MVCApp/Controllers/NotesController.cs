@@ -33,23 +33,13 @@ namespace MySecondBrain.MVCApp.Controllers
         }
 
         // GET: Notes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Detail(int id)
         {
-            if (id == null)
-            {
+            var vm = Application.Services.NoteControllerService.GetNoteDetail(id);
+            if (vm == null)
                 return NotFound();
-            }
 
-            var note = await _context.Notes
-                .Include(n => n.IddossierNavigation)
-                .Include(n => n.User)
-                .FirstOrDefaultAsync(m => m.Idnote == id);
-            if (note == null)
-            {
-                return NotFound();
-            }
-
-            return View(note);
+            return View(vm);
         }
         
         // GET: Notes/Create
@@ -57,9 +47,31 @@ namespace MySecondBrain.MVCApp.Controllers
         {
             NoteDetailViewModel vm = new NoteDetailViewModel();
 
-           
-
             return View();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var vm = Application.Services.NoteControllerService.GetNoteDetail(id);
+            if (vm == null)
+            {
+                return NotFound();
+            }
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Application.ViewModels.NoteDetailViewModel noteDetailViewModel)
+        {
+            Application.Services.NoteControllerService.EditNote(noteDetailViewModel.Note);
+            return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Application.Services.NoteControllerService.DeleteNote(id);
+            return RedirectToAction("Index");
         }
 
         // POST: Notes/Create
@@ -74,7 +86,7 @@ namespace MySecondBrain.MVCApp.Controllers
 
             NoteControllerService.CreateNote(noteDetailViewModel.Note, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            var notes = NoteControllerService.getNotesListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var notes = NoteControllerService.GetNotesListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             vm.Notes = notes;
 
@@ -82,79 +94,79 @@ namespace MySecondBrain.MVCApp.Controllers
         }
 
         // GET: Notes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var note = await _context.Notes.FindAsync(id);
-            if (note == null)
-            {
-                return NotFound();
-            }
-            ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", note.Iddossier);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", note.UserId);
-            return View(note);
-        }
+        //    var note = await _context.Notes.FindAsync(id);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", note.Iddossier);
+        //    ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", note.UserId);
+        //    return View(note);
+        //}
 
         // POST: Notes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Idnote,Iddossier,Titre,Description,ContenuMarkdown,DateCreation,UserId")] Note note)
-        {
-            if (id != note.Idnote)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Idnote,Iddossier,Titre,Description,ContenuMarkdown,DateCreation,UserId")] Note note)
+        //{
+        //    if (id != note.Idnote)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(note);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NoteExists(note.Idnote))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", note.Iddossier);
-            ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", note.UserId);
-            return View(note);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(note);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!NoteExists(note.Idnote))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["Iddossier"] = new SelectList(_context.Dossiers, "Iddossier", "Iddossier", note.Iddossier);
+        //    ViewData["UserId"] = new SelectList(_context.AspNetUsers, "Id", "Id", note.UserId);
+        //    return View(note);
+        //}
 
         // GET: Notes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var note = await _context.Notes
-                .Include(n => n.IddossierNavigation)
-                .Include(n => n.User)
-                .FirstOrDefaultAsync(m => m.Idnote == id);
-            if (note == null)
-            {
-                return NotFound();
-            }
+        //    var note = await _context.Notes
+        //        .Include(n => n.IddossierNavigation)
+        //        .Include(n => n.User)
+        //        .FirstOrDefaultAsync(m => m.Idnote == id);
+        //    if (note == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(note);
-        }
+        //    return View(note);
+        //}
 
         // POST: Notes/Delete/5
         [HttpPost, ActionName("Delete")]

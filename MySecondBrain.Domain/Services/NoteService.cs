@@ -24,7 +24,11 @@ namespace MySecondBrain.Domain.Services
 
                 note.Idnote = dbnote.Idnote;
                 note.Titre = dbnote.Titre;
-                // etc ...
+                note.Description = dbnote.Description;
+                note.Contenu = dbnote.Contenu;
+                note.DateCreation = dbnote.DateCreation;
+                note.Iddossier = dbnote.Iddossier;
+                note.UserId = dbnote.UserId;
                 notes1.Add(note);
             }
 
@@ -49,7 +53,8 @@ namespace MySecondBrain.Domain.Services
         public static void CreateNote(Infrastructure.DB.Note note, string userId )
         {
             note.UserId = userId;
-            note.Iddossier = 3;
+            note.DateCreation = DateTime.Now;
+            note.Iddossier = 3; // A MODIFIER pour qu'on puisse choisir un dossier nous mêmes
             Infrastructure.DB.MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             db.Notes.Add(note);

@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MySecondBrain.Application.Services
 {
     public class NoteControllerService
     {
-        public NoteListViewModel GetNotesListViewModel()
+        public NoteListViewModel GetNotesListViewModel(string userId)
         {
             NoteService noteService = new NoteService();
 
@@ -52,7 +53,7 @@ namespace MySecondBrain.Application.Services
         public static NoteDetailViewModel GetNoteDetail(int noteId)
         {
             Note note = NoteService.GetNote(noteId);
-            
+
             if(note == null)
             {
                 return null;
@@ -63,14 +64,48 @@ namespace MySecondBrain.Application.Services
                 Note = note
             };
 
-           return vm;
+            return vm;
+        }
+
+        public static NoteDetailViewModel GetNoteDetail()
+        {
+
+            NoteDetailViewModel vm = new NoteDetailViewModel()
+            {
+                DossierList = GetDossierList("d504ee08-20f8-45c6-9ae3-b06a30f13ab5")//change for a variable
+            };
+
+            return vm;
         }
 
         public static void DeleteNote(int noteId)
         {
             NoteService.DeleteNote(noteId);
         }
-    }
 
+        //GetDossier -> Passe par DossierService
+
+        public static List<SelectListItem> GetDossierList(string userId)
+        {
+            var dossierList = DossierService.GetAllDossiersOfUser(userId);
+
+            var list = new List<SelectListItem>();
+
+            foreach (var dossier in dossierList)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = dossier.Nom,
+                    Value = dossier.Iddossier.ToString()
+                });
+            }
+
+            return list;
+        }
+
+
+
+    }
 }
+
 

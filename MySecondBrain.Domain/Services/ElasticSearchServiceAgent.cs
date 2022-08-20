@@ -91,9 +91,7 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
         public static bool IndexNote(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument)
         {
             var esClient = new ElasticClient(GetESConnectionSettings());
-
             var indexResponse = esClient.Index(noteDocument, c => c.Index(noteIndexName));
-
             return indexResponse.IsValid;
         }
 
@@ -181,5 +179,14 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
             return notes.Documents.ToList().OrderBy(m => m.DateCreationNote);
 
         }
+
+        //METHOD DELETE INDEX : esClient.Delete<idnote,c => c.Index(noteIndexName) >
+        //public static bool DeIndexNote(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument, int idnote)
+        //{
+        //    var esClient = new ElasticClient(GetESConnectionSettings());
+        //    var indexResponse = esClient.Delete(idnote, c => c.Index(noteIndexName));
+        //    return indexResponse.IsValid;
+        //}
+        
     }
 }

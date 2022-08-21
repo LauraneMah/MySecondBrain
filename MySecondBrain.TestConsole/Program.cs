@@ -13,7 +13,6 @@ namespace MySecondBrain.TestConsole
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Hello World");
             if (Domain.Services.ElasticSearch.ElasticSearchServiceAgent.CreateIndexes())
             {
                 Console.WriteLine("Index créés avec succès :-)");
@@ -26,9 +25,10 @@ namespace MySecondBrain.TestConsole
             }
             else
                 Console.WriteLine("Problème pendant la création des index!");
+
         }
 
-        static void IndexDatabaseNote()
+        private static void IndexDatabaseNote()
         {
             var noteDocuments = new List<Infrastructure.ElasticSearch.IndexDocuments.NoteDocument>();
 
@@ -60,7 +60,7 @@ namespace MySecondBrain.TestConsole
                 Console.WriteLine("Une erreur s'est produite pendant l'indexation des notes!");
         }
 
-        static void IndexDatabaseTag()
+        public static void IndexDatabaseTag()
         {
             var tagDocuments = new List<Infrastructure.ElasticSearch.IndexDocuments.TagDocument>();
 

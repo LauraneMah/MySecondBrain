@@ -18,6 +18,9 @@
                 <input asp-for="Dossier.Nom" class="form-control" />
                 <span asp-validation-for="Dossier.Nom" class="text-danger"></span>
             </div>
+
+            @*Add DossierPArent in Edit*@
+
             @*<div class="form-group">
                 <label asp-for="IddossierParent" class="control-label"></label>
                 <select asp-for="IddossierParent" class="form-control" asp-items="ViewBag.IddossierParent"></select>

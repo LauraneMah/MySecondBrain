@@ -61,6 +61,7 @@ namespace MySecondBrain.Domain.Services
             db.Notes.Add(note);
             db.SaveChanges();
             IndexNote(note);
+            //TODO Add Tag
             //foreach (var item in )
             //{
             //    var noteTag = new NoteTag();

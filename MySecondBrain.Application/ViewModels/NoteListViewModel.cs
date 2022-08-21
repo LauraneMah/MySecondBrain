@@ -9,7 +9,5 @@ namespace MySecondBrain.Application.ViewModels
     public class NoteListViewModel
     {
         public List<Infrastructure.DB.Note> Notes { get; set; }
-
-
     }
 }

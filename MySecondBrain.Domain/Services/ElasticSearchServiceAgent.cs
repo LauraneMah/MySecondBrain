@@ -180,6 +180,7 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
 
         }
 
+        //TODO
         //METHOD DELETE INDEX : esClient.Delete<idnote,c => c.Index(noteIndexName) >
         //public static bool DeIndexNote(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument, int idnote)
         //{

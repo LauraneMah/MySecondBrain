@@ -103,7 +103,7 @@ namespace MySecondBrain.Application.Services
             return list;
         }
 
-
+        // TODO Method CreateNoteTag
 
     }
 }

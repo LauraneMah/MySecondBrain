@@ -18,6 +18,8 @@ namespace MySecondBrain.Application.ViewModels
         public List<SelectListItem> TagList { get; set; }
 
         public int IDDossier { get; set; }
+
+        public List<int> IdTagNote { get; set; }
     
     }
 }

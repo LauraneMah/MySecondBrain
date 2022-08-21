@@ -46,9 +46,10 @@ namespace MySecondBrain.Domain.Services
             }
         }
 
-        public static void CreateDossier(Dossier dossier, string userId)
+        public static void CreateDossier(Dossier dossier, string userId, int idDossierParent)
         {
             dossier.UserId = userId;
+            dossier.IddossierParent = idDossierParent;
 
             MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 

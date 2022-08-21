@@ -35,11 +35,17 @@
 
                     <div class="row form-group">
                         <div class="col-md-12">
+                            <div class="text-black">Dossier</div>
+                            <select asp-for="IDDossierParent" asp-items="Model.DossierList" class="form-control" placeholder="Enter text here" required="required" title="This field is required"></select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
 
                             <input type="submit" value="Create file" class="btn btn-primary py-2 px-4 text-white">
                         </div>
                     </div>
-
                 </div>
             }
         </div>

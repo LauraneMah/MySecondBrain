@@ -7,22 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MySecondBrain.Application.Services
 {
     public class NoteControllerService
     {
-        public NoteListViewModel GetNotesListViewModel()
+        public NoteListViewModel GetNotesListViewModel(string userId)
         {
-            NoteService NoteService = new NoteService();
+            NoteService noteService = new NoteService();
 
-            var NotesList = NoteService.GetNotes();
+            var notesList = noteService.GetNotes();
 
-            var ViewModel = new NoteListViewModel();
+            var vm = new NoteListViewModel();
 
-            ViewModel.Notes = NotesList;
+            vm.Notes = notesList;
 
-            return ViewModel;
+            return vm;
         }
 
         public static List<Note> GetNotesListOfUser(string userId)
@@ -38,9 +39,9 @@ namespace MySecondBrain.Application.Services
         }
 
 
-        public static void CreateNote(Note note, string userId)
+        public static void CreateNote(Note note, string userId, int idDossier)
         {
-            NoteService.CreateNote(note, userId);
+            NoteService.CreateNote(note, userId, idDossier);
         }
 
         public static void EditNote(Note note)
@@ -52,7 +53,7 @@ namespace MySecondBrain.Application.Services
         public static NoteDetailViewModel GetNoteDetail(int noteId)
         {
             Note note = NoteService.GetNote(noteId);
-            
+
             if(note == null)
             {
                 return null;
@@ -63,14 +64,48 @@ namespace MySecondBrain.Application.Services
                 Note = note
             };
 
-           return vm;
+            return vm;
+        }
+
+        public static NoteDetailViewModel GetNoteDetail()
+        {
+
+            NoteDetailViewModel vm = new NoteDetailViewModel()
+            {
+                DossierList = GetDossierList("d504ee08-20f8-45c6-9ae3-b06a30f13ab5")//change for a variable
+            };
+
+            return vm;
         }
 
         public static void DeleteNote(int noteId)
         {
             NoteService.DeleteNote(noteId);
         }
-    }
 
+        //GetDossier -> Passe par DossierService
+
+        public static List<SelectListItem> GetDossierList(string userId)
+        {
+            var dossierList = DossierService.GetAllDossiersOfUser(userId);
+
+            var list = new List<SelectListItem>();
+
+            foreach (var dossier in dossierList)
+            {
+                list.Add(new SelectListItem
+                {
+                    Text = dossier.Nom,
+                    Value = dossier.Iddossier.ToString()
+                });
+            }
+
+            return list;
+        }
+
+        // TODO Method CreateNoteTag
+
+    }
 }
+
 

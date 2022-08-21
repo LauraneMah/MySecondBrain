@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\RegisterPage\**" />
+    <Content Remove="Views\RegisterPage\**" />
+    <EmbeddedResource Remove="Views\RegisterPage\**" />
+    <None Remove="Views\RegisterPage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
@@ -21,10 +28,6 @@
     <ProjectReference Include="..\MySecondBrain.Application\MySecondBrain.Application.csproj" />
     <ProjectReference Include="..\MySecondBrain.Common\MySecondBrain.Common.csproj" />
     <ProjectReference Include="..\MySecondBrain.Infrastructure\MySecondBrain.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\RegisterPage\" />
   </ItemGroup>
 
   <ItemGroup>

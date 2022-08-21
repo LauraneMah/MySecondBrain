@@ -31,7 +31,12 @@
         <div class="row">
             <div class="col-lg-8">
                 <p>
-                    <a asp-action="Edit" asp-route-id="@Model.Dossier.Iddossier" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">Edit note</a>
+                    <h3>Id Dossier Parent</h3>
+                    @Model.Dossier.IddossierParent
+
+                </p>
+                <p>
+                    <a asp-action="Edit" asp-route-id="@Model.Dossier.Iddossier" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">Modifier le dossier</a>
                 </p>
             </div>
         </div>

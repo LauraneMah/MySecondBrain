@@ -88,12 +88,10 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
         }
 
         //lors de création d'une note, indexer qu'une seule note
-        public static bool IndexAlbum(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument)
+        public static bool IndexNote(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument)
         {
             var esClient = new ElasticClient(GetESConnectionSettings());
-
             var indexResponse = esClient.Index(noteDocument, c => c.Index(noteIndexName));
-
             return indexResponse.IsValid;
         }
 
@@ -130,7 +128,7 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
         {
             var esClient = new ElasticClient(GetESConnectionSettings());
 
-            // récupération de tous les documents de l'index des albums
+            // récupération de tous les documents de l'index des notes
             var tags = esClient.Search<Infrastructure.ElasticSearch.IndexDocuments.TagDocument>(search =>
                     search.Index(tagIndexName)
                             .Size(1000)
@@ -160,7 +158,7 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
         public static IEnumerable<Infrastructure.ElasticSearch.IndexDocuments.NoteDocument> GetAllNotesOfUser(string userId)
         {
             var esClient = new ElasticClient(GetESConnectionSettings());
-            // récupération de tous les documents de l'index des albums du user
+            // récupération de tous les documents de l'index des notes du user
             var notes = esClient.Search<Infrastructure.ElasticSearch.IndexDocuments.NoteDocument>(search =>
                     search.Index(noteIndexName)
                             .Size(1000)
@@ -181,5 +179,15 @@ namespace MySecondBrain.Domain.Services.ElasticSearch
             return notes.Documents.ToList().OrderBy(m => m.DateCreationNote);
 
         }
+
+        //TODO
+        //METHOD DELETE INDEX : esClient.Delete<idnote,c => c.Index(noteIndexName) >
+        //public static bool DeIndexNote(Infrastructure.ElasticSearch.IndexDocuments.NoteDocument noteDocument, int idnote)
+        //{
+        //    var esClient = new ElasticClient(GetESConnectionSettings());
+        //    var indexResponse = esClient.Delete(idnote, c => c.Index(noteIndexName));
+        //    return indexResponse.IsValid;
+        //}
+        
     }
 }

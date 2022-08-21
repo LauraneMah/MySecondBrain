@@ -1,41 +1,37 @@
-﻿@model IEnumerable<MySecondBrain.Infrastructure.DB.Tag>
+﻿@model MySecondBrain.Application.ViewModels.TagListViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div class="mb-5">
+                    <div>
+                        <h1>Tag : </h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Idtag">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Idtag">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Idtag">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                        <a asp-action="Create" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Create">Créer un tag</a>
+
+                        @foreach (var item in Model.Tags)
+                        {
+                            <div class="d-block d-md-flex listing list-group-horizontal-xl">
+                                <div class="lh-content">
+                                    <span class="category">@item.Idtag</span>
+                                    <h2><a asp-action="Detail" asp-route-id="@item.Idtag" class="text-black">@item.Nom</a></h2>
+                                    <div>
+                                        <a asp-action="Edit" asp-route-id="@item.Idtag" class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Idtag" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

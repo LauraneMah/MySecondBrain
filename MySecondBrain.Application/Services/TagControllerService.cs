@@ -53,9 +53,9 @@ namespace MySecondBrain.Application.Services
             return vm.Tags;
         }
 
-        public static void CreateTag(Tag tag, string userId)
+        public static void CreateTag(Tag tag, string userId, int idTag)
         {
-            TagService.CreateTag(tag, userId);
+            TagService.CreateTag(tag, userId, idTag);
         }
 
         public static void EditTag(Tag tag)

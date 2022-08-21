@@ -10,5 +10,7 @@ namespace MySecondBrain.Application.ViewModels
     public class TagDetailViewModel
     {
         public Tag Tag { get; set; }
+
+        public int IDTag { get; set; }
     }
 }

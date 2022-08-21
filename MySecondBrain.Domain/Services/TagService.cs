@@ -45,14 +45,26 @@ namespace MySecondBrain.Domain.Services
             }
         }
 
-        public static void CreateTag(Tag tag, string userId)
+        public static void CreateTag(Tag tag, string userId, int idTag)
         {
             tag.UserId = userId;
+            tag.Idtag = idTag;
 
             MySecondBrain_LMContext db = new MySecondBrain_LMContext();
 
             db.Tags.Add(tag);
             db.SaveChanges();
+            IndexTag(tag);
+        }
+
+        private static void IndexTag(Tag tag)
+        {
+            Infrastructure.ElasticSearch.IndexDocuments.TagDocument tagDocument = new();
+            tagDocument.TagId = tag.Idtag;
+            tagDocument.TagUserId = tag.UserId;
+            tagDocument.TagName = tag.Nom;
+
+            ElasticSearch.ElasticSearchServiceAgent.IndexTag(tagDocument);
         }
 
         public static void EditTag(Tag tag)

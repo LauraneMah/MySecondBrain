@@ -74,15 +74,13 @@ namespace MySecondBrain.MVCApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult PostCreate(TagDetailViewModel tagDetailViewModel)
         {
-            TagListViewModel vm = new TagListViewModel();
+            int idTag = tagDetailViewModel.IDTag;
 
-            TagControllerService.CreateTag(tagDetailViewModel.Tag, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            TagControllerService.CreateTag(tagDetailViewModel.Tag, this.User.FindFirstValue(ClaimTypes.NameIdentifier), idTag);
 
             var tags = TagControllerService.GetTagsListOfUser(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            vm.Tags = tags;
-
-            return View("Index", vm);
+            return RedirectToAction("Index");
         }
 
         //// GET: Tags/Details/5
